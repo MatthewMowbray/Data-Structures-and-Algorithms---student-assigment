@@ -93,5 +93,16 @@ namespace Data_Structures_and_Algorithms___Assignment
             return x.CourseCode >= y.CourseCode;
         }
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Course code: {CourseCode}");
+            sb.AppendLine($"Course code: {CourseName}");
+            sb.AppendLine($"Course code: {Cost}");
+          
+
+            return sb.ToString();
+        }
+
     }
 }

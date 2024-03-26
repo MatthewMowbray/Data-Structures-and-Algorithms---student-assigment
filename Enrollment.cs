@@ -50,5 +50,16 @@ namespace Data_Structures_and_Algorithms___Assignment
         {
             return this.Course.GetHashCode() ^ this.EnrolDate.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Course Info");
+            sb.AppendLine($"{Course.ToString()}");
+            sb.AppendLine($"Enrol date: {EnrolDate}");
+            sb.AppendLine($"Grade: {Grade}");
+            sb.AppendLine($"Semester: {Semester}");
+            return sb.ToString();
+        }
     }
 }

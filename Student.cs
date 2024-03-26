@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace Data_Structures_and_Algorithms___Assignment
         public string Program { get; set;}
         public string DateRegistered { get;set;}
 
-        public Student(Enrollment enrollment,int studentid,string program,string datereg, string name,string email,string telnum):base(name, email, telnum)
+        public Student(Enrollment enrollment,int studentid,string program,string datereg, string name,string email,string telnum, Address address):base(name, email, telnum, address)
         {
             Enrollment = enrollment;
             StudentID = studentid;
@@ -74,8 +75,7 @@ namespace Data_Structures_and_Algorithms___Assignment
             if (obj.GetType() != GetType())
                 return false;
             Student? student = obj as Student;
-            return this.StudentID == student.StudentID && this.DateRegistered == student.DateRegistered  && this.Program == student.Program
-              && this.Enrollment.Equals(student);
+            return this.StudentID == student.StudentID;
 
         }
         /// <summary>
@@ -96,7 +96,7 @@ namespace Data_Structures_and_Algorithms___Assignment
 
         public override int GetHashCode()
         {
-            return base.GetHashCode() ^ this.DateRegistered.GetHashCode() ^ this.Program.GetHashCode();
+            return base.GetHashCode() ^ this.DateRegistered.GetHashCode() ^ this.Program.GetHashCode() ^ this.StudentID;
         }
 
         public static bool operator <(Student x, Student y)
@@ -118,5 +118,17 @@ namespace Data_Structures_and_Algorithms___Assignment
         {
             return x.StudentID >= y.StudentID;
         }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Student ID: {StudentID}");
+            sb.AppendLine($"Program: {Program}");
+            sb.AppendLine($"DateRegistered: {DateRegistered}");
+            sb.AppendLine("Enrollment Info:");
+            sb.AppendLine($"{Enrollment.ToString()}");
+            return sb.ToString();
+        }
+
     }
 }

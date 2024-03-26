@@ -60,5 +60,15 @@ namespace Data_Structures_and_Algorithms___Assignment
         {
             throw new NotImplementedException();
         }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Number: {Number}");
+            sb.AppendLine($"Street: {Street}" );
+            sb.AppendLine($"Postcode: {Postcode}");
+            sb.AppendLine($"State: {State}");
+            return sb.ToString();
+        }
     }
 }

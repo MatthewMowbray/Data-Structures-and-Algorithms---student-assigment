@@ -21,12 +21,12 @@ namespace Data_Structures_and_Algorithms___Assignment
         public Address Address { get {return _Address;} set { _Address = value; } }
        
 
-        public Person(string name, string email, string telenum) 
+        public Person(string name, string email, string telenum, Address address) 
         {
             Name = name;
             Email = email;
             TeleNum = telenum;
-            Address = new Address();
+            Address = address;
         }
 
 
@@ -57,6 +57,18 @@ namespace Data_Structures_and_Algorithms___Assignment
         public override int GetHashCode()
         {
             return this.Name.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            
+            sb.AppendLine($"Name: {Name}");
+            sb.AppendLine($"Email: {Email}");
+            sb.AppendLine($"TeleNum: {TeleNum}");
+            sb.AppendLine($"Address Info:");
+            sb.AppendLine($"{Address.ToString()}");
+            return sb.ToString();
         }
     }
 }
