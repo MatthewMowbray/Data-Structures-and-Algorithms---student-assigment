@@ -5,16 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 using static Data_Structures_and_Algorithms___Assignment.DoubleLinkedListNode;
 
 
 namespace Data_Structures_and_Algorithms___Assignment
 {
-    
-    
+
+
     public class StudentTest : IDisposable
     {
-        
+
+
         Course Maths;
         Course Physics;
         Course Chemistry;
@@ -25,6 +27,9 @@ namespace Data_Structures_and_Algorithms___Assignment
         Enrollment enrollment3;
         Enrollment enrollment4;
         Enrollment enrollment5;
+        Person person1;
+        Person person2;
+
 
         Student student1;
         Student student2;
@@ -36,6 +41,7 @@ namespace Data_Structures_and_Algorithms___Assignment
         Student student8;
         Student student9;
         Student student10;
+        Student student11;
         Student[] studentArray;
         LinkedList<Student> studentLinkedList;
         BinaryTree binaryTreeStudent;
@@ -50,12 +56,12 @@ namespace Data_Structures_and_Algorithms___Assignment
         Address address8;
         Address address9;
         Address address10;
-       
+
 
 
         private DoubleLinkedList<Student> studentLinkedListD;
 
-        public StudentTest() 
+        public StudentTest()
         {
             Maths = new Course(123, "Maths 101", 600);
             Physics = new Course(134, "Quantum Physics", 750);
@@ -123,7 +129,7 @@ namespace Data_Structures_and_Algorithms___Assignment
             address9.Street = "Heathpool Street";
             address9.Suburb = "Burton";
             address9.Postcode = "5002";
-            
+
 
             address10 = new Address();
             address10.Number = 20;
@@ -131,10 +137,13 @@ namespace Data_Structures_and_Algorithms___Assignment
             address10.Suburb = "Penfield";
             address10.Postcode = "5008";
 
+            person1 = new Person("John","JSmith@email.com","04246821",address1);
+            person2 = new Person("Sam","SamWaters@gmail.com","0432218993",address2);
+
 
             //initalize 10 Student objects
-            student1 = new Student(enrollment1, 1, "Bacholor of mathematics", "11/10/22", "John Smith", "JohnSmith@email.com", "8528194427",address1);
-            student2 = new Student(enrollment2, 2, "Bacholor of Physics", "15/10/22", "Sherman Burns", "ShermanBurns@email.com", "2565266996",address2);
+            student1 = new Student(enrollment1, 1, "Bacholor of mathematics", "11/10/22", "John Smith", "JohnSmith@email.com", "8528194427", address1);
+            student2 = new Student(enrollment2, 2, "Bacholor of Physics", "15/10/22", "Sherman Burns", "ShermanBurns@email.com", "2565266996", address2);
             student3 = new Student(enrollment3, 3, "Bacholor of Mathematics", "17/10/22", "Deann Schmidt", "DeannSchmidt@email.com", "7781968569", address3);
             student4 = new Student(enrollment4, 12, "Bacholor of Chemistry", "17/10/22", "Freda Just", "FredaJust@email.com", "6144676236", address4);
             student5 = new Student(enrollment4, 5, "Bacholor of Chemistry", "17/10/22", "Loren Banks", "LorenBanks@email.com", "9057000044", address5);
@@ -144,6 +153,7 @@ namespace Data_Structures_and_Algorithms___Assignment
             student9 = new Student(enrollment4, 9, "Bacholor of Chemistry", "17/10/22", "Freda Floyd", "FredaFloyd@email.com", "2347210060", address9);
             student10 = new Student(enrollment5, 10, "Bacholor of Art", "19/10/22", "RudyTaylor", "RudyTaylor@email.com", "2098431343", address10);
 
+            student11 = new Student(enrollment4, 13, "Bachalor of Engineering", "18/10/22", "Santi Remo", "SantiRemo@email.com", "0422488936", address6);
 
             studentArray = new Student[10];
             studentArray[0] = student1;
@@ -161,51 +171,212 @@ namespace Data_Structures_and_Algorithms___Assignment
 
         public void Dispose()
         {
-            
+
         }
 
-        //Student comparison method Tests and hashcode
+
+
+
+        //Student class comparison method Tests and hashcode
         [Fact]
-        public void EqualsMethod()
+        public void EqualsOperatorStudentMethod()
         {
             Assert.False(student1 == student2);
         }
 
-        
+
         [Fact]
-        public void NotEqualMethod()
+        public void NotEqualOperatorStudentMethod()
         {
             Assert.True(student3 != student4);
         }
 
-
         [Fact]
-        public void HashCode()
+        public void LessThanStudentMethod()
         {
-            //same value as student 5
-            Student teststudent = student5 = new Student(enrollment4, 5, "Bacholor of Chemistry", "17/10/22", "Loren Banks", "LorenBanks@email.com", "9057000044", address5);
-            Assert.True(student5.GetHashCode() == teststudent.GetHashCode());
+            Assert.True( student1 < student2);
         }
 
+
+        [Fact]
+        public void LessThanOrEqualStudentMethod()
+        {
+            Assert.True((student1 <= student2) && (student1 <= student1));
+        }
+
+        [Fact]
+        public void GreaterThanStudentMethod()
+        {
+            Assert.True(student3 > student2);
+        }
+
+        [Fact]
+        public void GreaterThanOrEqualStudentMethod()
+        {
+            Assert.True((student3 >= student2) && (student3 >= student3));
+
+        }
+
+
+        [Fact]
+        public void StudentHashCode()
+        {
+            //same value as student5
+            Student testStudent  = new Student(enrollment4, 5, "Bacholor of Chemistry", "17/10/22", "Loren Banks", "LorenBanks@email.com", "9057000044", address5);
+            Assert.True(student5.GetHashCode() == testStudent.GetHashCode());
+        }
+
+
+
+        //Person  tests
+
+        [Fact]
+        public void EqualsOperatorPersonMethod()
+        {
+            Assert.False(person1 == person2);
+        }
+
+
+        [Fact]
+        public void NotEqualPersonMethod()
+        {
+            Assert.True(person1 != person2);
+        }
+
+  
+
+
+        [Fact]
+        public void PersonHashCode()
+        {
+            //same value as person1
+
+            Person testPerson = new Person("John", "JSmith@email.com", "04246821", address1);
+            Assert.True(person1.GetHashCode() == testPerson.GetHashCode());
+        }
+
+
+
+        //Address  tests
+        [Fact]
+        public void EqualsOperatorAddressMethod()
+        {
+            Assert.False(Maths == Art);
+        }
+
+
+        [Fact]
+        public void NotEqualAddressMethod()
+        {
+            Assert.True(Maths != Chemistry);
+        }
+
+
+
+
+        [Fact]
+        public void AddressHashCode()
+        {
+            //same Address as address1
+           
+            Address testAddress = new Address();
+            testAddress.Number = 1;
+            testAddress.Street = "Fleet Street";
+            testAddress.Suburb = "Payenam";
+            testAddress.Postcode = "5033";
+            Assert.True(address1.GetHashCode() == testAddress.GetHashCode());
+        }
+
+        //Course tests
+        [Fact]
+        public void EqualsOperatorCourseMethod()
+        {
+            Assert.False(address1 == address2);
+        }
+
+
+        [Fact]
+        public void NotEqualCourseMethod()
+        {
+            Assert.True(address1 != address2);
+        }
+
+
+
+
+        [Fact]
+        public void CourseHashCode()
+        {
+            //same values  as physics
+            Course testCourse = new Course(134, "Quantum Physics", 750);
+           
+            Assert.True(Physics.GetHashCode() == testCourse.GetHashCode());
+        }
+
+        //Enrolment tests
+        [Fact]
+        public void EqualsOperatorEnrollmentMethod()
+        {
+            Assert.False(enrollment1 == enrollment2);
+        }
+
+
+        [Fact]
+        public void NotEqualEnrollmentMethod()
+        {
+            Assert.True(enrollment1 != enrollment2);
+        }
+
+
+    
+
+        [Fact]
+        public void EnrollmentHashCode()
+        {
+            //same enrollment 4
+            Enrollment testEnrollment = new Enrollment("13/02/23", "B", 1, Chemistry);
+
+            Assert.True(enrollment4.GetHashCode() == testEnrollment.GetHashCode());
+        }
 
         //Search Algorithm Tests
 
         [Fact]
-        public void LinearSeach()
+        public void LinearSearchTrue()
         {
 
             int index = SearchAndSort.LinearSearchOfStudent(studentArray,student1);
+            Console.WriteLine("index == 0 is {0}",index == 0);
             Assert.Equal(0, index);
 
         }
 
         [Fact]
-        public void BinarySearch() 
+        public void LinearSearchFalse() 
+        {
+            Array.Sort(studentArray);
+            int index = SearchAndSort.LinearSearchOfStudent(studentArray, student11);
+            Console.WriteLine("index == -1 is {0}", index == -1);
+            Assert.Equal(-1,index);
+        }
+
+        [Fact]
+        public void BinarySearchTrue() 
         {
             Array.Sort(studentArray);
             int index = SearchAndSort.BinarySearchOfStudent(studentArray, student2);
+            Console.WriteLine("index == 9 is {0}", index == 9);
             Assert.Equal(9, index);
             
+        }
+
+        [Fact]
+        public void BinarySearchFalse()
+        {
+            Array.Sort(studentArray);
+            int index = SearchAndSort.BinarySearchOfStudent(studentArray, student11);
+            Console.WriteLine("index == -1 is {0}", index == -1);
+            Assert.Equal(-1, index);
         }
 
 

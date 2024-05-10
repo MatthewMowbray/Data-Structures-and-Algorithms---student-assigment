@@ -127,6 +127,8 @@ namespace Data_Structures_and_Algorithms___Assignment
             sb.AppendLine($"DateRegistered: {DateRegistered}");
             sb.AppendLine("Enrollment Info:");
             sb.AppendLine($"{Enrollment.ToString()}");
+            sb.AppendLine("Person Info:");
+            sb.AppendLine($"{base.ToString()}");
             return sb.ToString();
         }
 

@@ -58,7 +58,7 @@ namespace Data_Structures_and_Algorithms___Assignment
 
         public override int GetHashCode()
         {
-            throw new NotImplementedException();
+            return this.Postcode.GetHashCode();
         }
 
         public override string ToString()
