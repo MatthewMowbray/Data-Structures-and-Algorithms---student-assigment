@@ -11,7 +11,7 @@ namespace Data_Structures_and_Algorithms___Assignment
         public T Value;
 
         public LinkedListNode<T> Next { get; set; }
-        public LinkedListNode<T> Previous { get; internal set; }
+       
 
         public LinkedListNode(T value)
        {

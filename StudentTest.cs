@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
-using static Data_Structures_and_Algorithms___Assignment.DoubleLinkedListNode;
+using static Data_Structures_and_Algorithms___Assignment.DoubleLinkedListNode<Data_Structures_and_Algorithms___Assignment.Student>;
 
 
 namespace Data_Structures_and_Algorithms___Assignment
@@ -346,7 +346,6 @@ namespace Data_Structures_and_Algorithms___Assignment
         {
 
             int index = SearchAndSort.LinearSearchOfStudent(studentArray,student1);
-            Console.WriteLine("index == 0 is {0}",index == 0);
             Assert.Equal(0, index);
 
         }
@@ -354,10 +353,18 @@ namespace Data_Structures_and_Algorithms___Assignment
         [Fact]
         public void LinearSearchFalse() 
         {
-            Array.Sort(studentArray);
+            
             int index = SearchAndSort.LinearSearchOfStudent(studentArray, student11);
-            Console.WriteLine("index == -1 is {0}", index == -1);
             Assert.Equal(-1,index);
+        }
+
+        [Fact]
+        public void LinearSearchException()
+        {
+            Student nullStudent = null;
+
+         
+            Assert.Throws<NullReferenceException>((() => SearchAndSort.LinearSearchOfStudent(studentArray,nullStudent)));
         }
 
         [Fact]
@@ -365,7 +372,6 @@ namespace Data_Structures_and_Algorithms___Assignment
         {
             Array.Sort(studentArray);
             int index = SearchAndSort.BinarySearchOfStudent(studentArray, student2);
-            Console.WriteLine("index == 9 is {0}", index == 9);
             Assert.Equal(9, index);
             
         }
@@ -375,15 +381,21 @@ namespace Data_Structures_and_Algorithms___Assignment
         {
             Array.Sort(studentArray);
             int index = SearchAndSort.BinarySearchOfStudent(studentArray, student11);
-            Console.WriteLine("index == -1 is {0}", index == -1);
             Assert.Equal(-1, index);
         }
 
+        [Fact]
+        public void BinarySearchException()
+        {
+            Student student = null;
+            Array.Sort(studentArray);
+            Assert.Throws<NullReferenceException>((() => SearchAndSort.BinarySearchOfStudent(studentArray,student)));
+        }
 
         //Sort Algorithm Tests
 
         [Fact]
-        public void BubbleSort()
+        public void BubbleSortAsc()
         {
             SearchAndSort.BubbleSortOfStudentAsc(studentArray);
             Assert.Equal("Freda Floyd", studentArray[1].Name);
@@ -392,6 +404,14 @@ namespace Data_Structures_and_Algorithms___Assignment
             Assert.Equal("John Fitzpatrick", studentArray[4].Name);
             Assert.Equal("John Smith", studentArray[5].Name);
 
+        }
+
+        [Fact]
+        public void BubbleSortDes() 
+        {
+            SearchAndSort.BubbleSortOfStudentDes(studentArray);
+            Assert.Equal("Loren Banks", studentArray[1].Name);
+            
         }
 
         [Fact]
@@ -419,7 +439,7 @@ namespace Data_Structures_and_Algorithms___Assignment
         }
 
         [Fact]
-        public void singleLinkedListTail()
+        public void SingleLinkedListTail()
         {
             studentLinkedList = new LinkedList<Student>();
             studentLinkedList.Add(student8);
@@ -430,7 +450,7 @@ namespace Data_Structures_and_Algorithms___Assignment
         }
 
         [Fact]
-        public void singleLinkedListContains()
+        public void SingleLinkedListContains()
         {
             studentLinkedList = new LinkedList<Student>();
             studentLinkedList.Add(student9);
@@ -441,7 +461,7 @@ namespace Data_Structures_and_Algorithms___Assignment
         }
 
         [Fact]
-        public void SingleLinkedListRemove() 
+        public void SingleLinkedListRemoveHead() 
         {
                 studentLinkedList = new LinkedList<Student>();
                 studentLinkedList.Add(student9);
@@ -449,7 +469,19 @@ namespace Data_Structures_and_Algorithms___Assignment
                 studentLinkedList.Add(student6);
                 studentLinkedList.RemoveFirst();
                 LinkedListNode<Student> Head = studentLinkedList.Head; 
-                Assert.NotEqual<Student>(student8,Head.Value);
+                Assert.NotEqual<Student>(student6,Head.Value);
+        }
+
+        [Fact]
+        public void SingleLinkedListRemoveTail()
+        {
+            studentLinkedList = new LinkedList<Student>();
+            studentLinkedList.Add(student9);
+            studentLinkedList.Add(student7);
+            studentLinkedList.Add(student6);
+            studentLinkedList.RemoveLast();
+            LinkedListNode<Student> Tail = studentLinkedList.Tail;
+            Assert.NotEqual<Student>(student9, Tail.Value);
         }
 
         //Double Linked List
@@ -460,7 +492,7 @@ namespace Data_Structures_and_Algorithms___Assignment
             studentLinkedListD = new DoubleLinkedList<Student>();
             studentLinkedListD.AddFirst(student1);
             studentLinkedListD.AddFirst(student2);
-            LinkedListNode<Student> Head = studentLinkedListD.Head;
+            DoubleLinkedListNode<Student> Head = studentLinkedListD.Head;
 
             Assert.Equal(student2,Head.Value);
 
@@ -472,7 +504,7 @@ namespace Data_Structures_and_Algorithms___Assignment
             studentLinkedListD = new DoubleLinkedList<Student>();
             studentLinkedListD.AddFirst(student8);
             studentLinkedListD.AddLast(student2);
-            LinkedListNode<Student> Tail = studentLinkedListD.Tail;
+            DoubleLinkedListNode<Student> Tail = studentLinkedListD.Tail;
 
             Assert.Equal(student2, Tail.Value);
         }
@@ -489,15 +521,27 @@ namespace Data_Structures_and_Algorithms___Assignment
         }
 
         [Fact]
-        public void DoubleLinkedListRemove() 
+        public void DoubleLinkedListRemoveHead() 
         {
                 studentLinkedListD = new DoubleLinkedList<Student>();
                 studentLinkedListD.AddFirst(student9);
                 studentLinkedListD.AddFirst(student7);
                 studentLinkedListD.AddFirst(student6);
                 studentLinkedListD.RemoveFirst();
-                LinkedListNode<Student> Head = studentLinkedListD.Head; 
-                Assert.NotEqual<Student>(student7,Head.Value);
+                DoubleLinkedListNode<Student> Head = studentLinkedListD.Head; 
+                Assert.NotEqual<Student>(student6,Head.Value);
+        }
+
+        [Fact]
+        public void DoubleLinkedListRemoveTail()
+        {
+            studentLinkedListD = new DoubleLinkedList<Student>();
+            studentLinkedListD.AddFirst(student9);
+            studentLinkedListD.AddFirst(student7);
+            studentLinkedListD.AddFirst(student6);
+            studentLinkedListD.RemoveFirst();
+            DoubleLinkedListNode<Student> Head = studentLinkedListD.Head;
+            Assert.NotEqual<Student>(student6, Head.Value);
         }
 
 
@@ -516,11 +560,80 @@ namespace Data_Structures_and_Algorithms___Assignment
            Node find = binaryTreeStudent.find(student1);
 
            Assert.Equal(student1.StudentID, find.Data);
-        } 
+        }
 
-       
+        [Fact]
+        public void TraversePreOrder()
+        {
+            binaryTreeStudent = new BinaryTree();
+            binaryTreeStudent.Add(student1);
+            binaryTreeStudent.Add(student2);
+            binaryTreeStudent.Add(student3);
+            binaryTreeStudent.Add(student4);
+            binaryTreeStudent.Add(student5);
+            binaryTreeStudent.Add(student6);
+            binaryTreeStudent.Add(student7);
 
-        
+            string exspectedOutput = "1 2 3 12 5 6 7 ";
+
+            Node parent = binaryTreeStudent.Root; 
+
+            binaryTreeStudent.TraversePreOrder(parent);
+
+            string output = binaryTreeStudent.TraversalOutput();
+
+            Assert.Equal(exspectedOutput,output);
+        }
+
+        [Fact]
+        public void TraversePostOrder()
+        {
+            binaryTreeStudent = new BinaryTree();
+            binaryTreeStudent.Add(student1);
+            binaryTreeStudent.Add(student2);
+            binaryTreeStudent.Add(student3);
+            binaryTreeStudent.Add(student4);
+            binaryTreeStudent.Add(student5);
+            binaryTreeStudent.Add(student6);
+            binaryTreeStudent.Add(student7);
+
+            string exspectedOutput = "7 6 5 12 3 2 1 ";
+
+            Node parent = binaryTreeStudent.Root;
+
+            binaryTreeStudent.TraversePostOrder(parent);
+
+            string output = binaryTreeStudent.TraversalOutput();
+
+            Assert.Equal(exspectedOutput, output);
+        }
+
+        [Fact]
+        public void TraverseInOrder()
+        {
+            binaryTreeStudent = new BinaryTree();
+            binaryTreeStudent.Add(student1);
+            binaryTreeStudent.Add(student2);
+            binaryTreeStudent.Add(student3);
+            binaryTreeStudent.Add(student4);
+            binaryTreeStudent.Add(student5);
+            binaryTreeStudent.Add(student6);
+            binaryTreeStudent.Add(student7);
+
+            string exspectedOutput = "1 2 3 5 6 7 12 ";
+
+            Node parent = binaryTreeStudent.Root;
+
+            binaryTreeStudent.TraverseInOrder(parent);
+
+            string output = binaryTreeStudent.TraversalOutput();
+
+            Assert.Equal(exspectedOutput, output);
+
+        }
+
+
+
 
     }
 

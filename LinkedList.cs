@@ -19,7 +19,9 @@ namespace Data_Structures_and_Algorithms___Assignment
         }
 
         public LinkedListNode<T> Tail
-        { get; private set; }
+        { get; 
+          private set; 
+        }
 
         
 
@@ -93,14 +95,17 @@ namespace Data_Structures_and_Algorithms___Assignment
                     while (current.Next != Tail)
                     {
                         current = current.Next;
-                        Tail .Next = current;
+                        
 
                     }
-
+                    current.Next = null;
+                    Tail = current;
                 }
                 Count--; 
             }
         }
+
+
 
         public int Count
         {

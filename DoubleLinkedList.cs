@@ -9,30 +9,26 @@ namespace Data_Structures_and_Algorithms___Assignment
 {
     public class DoubleLinkedList<T> : System.Collections.Generic.ICollection<T>
     {
-        public LinkedListNode<T> Head { get; private set; }
+        public DoubleLinkedListNode<T> Head { get; private set; }
 
-        public LinkedListNode<T> Tail { get; private set; }
+        public DoubleLinkedListNode<T> Tail { get; private set; }
 
        
 
 
 
-        public int Count 
-        { 
-            get; 
-            private set; 
-        }
+       
 
         public bool IsReadOnly { get { return false; } }
 
         public void AddFirst(T value)
         {
-            AddFirst(new LinkedListNode<T>(value)); 
+            AddFirst(new DoubleLinkedListNode<T>(value)); 
         }
 
-        public void AddFirst(LinkedListNode<T> node)
+        public void AddFirst(DoubleLinkedListNode<T> node)
         {
-            LinkedListNode<T> temp = Head;
+            DoubleLinkedListNode<T> temp = Head;
 
             Head = node;
 
@@ -51,11 +47,11 @@ namespace Data_Structures_and_Algorithms___Assignment
 
         public void AddLast(T value)
         {
-          AddLast(new LinkedListNode<T>(value));
+          AddLast(new DoubleLinkedListNode<T>(value));
         }
 
 
-        public void  AddLast(LinkedListNode<T> node)
+        public void  AddLast(DoubleLinkedListNode<T> node)
         {
             if(Count == 0)
             {
@@ -75,7 +71,7 @@ namespace Data_Structures_and_Algorithms___Assignment
         {
             if(Count != 0)
             {
-                Head.Next = Head;
+                Head = Head.Next;
 
                 Count--;
                 if(Count == 0)
@@ -110,6 +106,12 @@ namespace Data_Structures_and_Algorithms___Assignment
             }
         }
 
+        public int Count
+        {
+            get;
+            private set;
+        }
+
         public void Add(T item)
         {
             AddFirst(item);
@@ -124,7 +126,7 @@ namespace Data_Structures_and_Algorithms___Assignment
 
         public bool Contains(T item)
         {
-            LinkedListNode<T> current =Head;
+            DoubleLinkedListNode<T> current =Head;
             while(current != null)
             {
                 if(current.Value.Equals(item)) 
@@ -136,7 +138,7 @@ namespace Data_Structures_and_Algorithms___Assignment
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            LinkedListNode<T> current = Head;
+            DoubleLinkedListNode<T> current = Head;
             while(current != null)
             {
                 array[arrayIndex++] = current.Value;
@@ -146,7 +148,7 @@ namespace Data_Structures_and_Algorithms___Assignment
 
         public IEnumerator<T> GetEnumerator()
         {
-            LinkedListNode<T> current = Head;
+            DoubleLinkedListNode<T> current = Head;
 
             while(current != null)
             {
@@ -157,8 +159,8 @@ namespace Data_Structures_and_Algorithms___Assignment
 
         public bool Remove(T item)
         {
-            LinkedListNode<T> previous = null;
-            LinkedListNode<T> current = Head;
+            DoubleLinkedListNode<T> previous = null;
+            DoubleLinkedListNode<T> current = Head;
 
             while(current != null)
             {

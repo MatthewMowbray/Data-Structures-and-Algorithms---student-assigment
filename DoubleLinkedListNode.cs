@@ -6,21 +6,20 @@ using System.Threading.Tasks;
 
 namespace Data_Structures_and_Algorithms___Assignment
 {
-    public class DoubleLinkedListNode
+    public class DoubleLinkedListNode<T>
     {
-        public class LinkedListNode<T>
+        public DoubleLinkedListNode(T value)
         {
+            Value = value;
+        }
             public T Value;
 
-            public LinkedListNode<T> Next { get; set; }
+            public DoubleLinkedListNode<T> Next { get; set; }
 
-            public LinkedList<T> Previous { get; set; }
+            public DoubleLinkedListNode<T> Previous { get; set; }
 
 
-            public LinkedListNode(T value)
-            {
-                Value = value;
-            }
-        }
+          
+        
     }
 }

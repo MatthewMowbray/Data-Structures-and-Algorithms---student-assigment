@@ -14,25 +14,36 @@ namespace Data_Structures_and_Algorithms___Assignment
         /// <param name="studentArray"></param>
         /// <param name="student"></param>
         /// <returns>Index of student</returns>
-       public static int LinearSearchOfStudent(Student[] studentArray,Student student)
+       public static int LinearSearchOfStudent(Student[] studentArray, Student student)
         {
             int i = 0;
             bool found = false;
 
-
-            while (!found && i < studentArray.Length)
+            try
             {
-                if (student.Equals(studentArray[i]))
-                    found = true;
+                while (!found && i < studentArray.Length)
+                {
+                    if (student.Equals(studentArray[i]))
+                        found = true;
+                    else
+                        i++;
+
+                }
+                if (i < studentArray.Length)
+                    return i;
                 else
-                    i++;
+                    return -1;
 
             }
-            if (i < studentArray.Length)
-                return i;
-            else
-                return -1;
 
+            catch
+            {
+                throw new NullReferenceException("Student must not be null");
+            }
+       
+        
+            
+            
         }
         
         /// <summary>
@@ -46,21 +57,28 @@ namespace Data_Structures_and_Algorithms___Assignment
             int min = 0;
             int max = studentArray.Length - 1;
             int mid;
-            
-            do
+            try
             {
-                mid = (max + min) / 2;
-                if (studentArray[mid].Equals(student))
-                    return mid;
+                do
+                {
+                    mid = (max + min) / 2;
+                    if (studentArray[mid].Equals(student))
+                        return mid;
 
-                if (student.CompareTo(studentArray[mid]) > 0)
-                    min = mid + 1;
+                    if (student.CompareTo(studentArray[mid]) > 0)
+                        min = mid + 1;
 
-                else
-                    max = mid - 1;
+                    else
+                        max = mid - 1;
 
-            } while (min <= max);
-            return -1;
+                } while (min <= max);
+                return -1;
+            }
+            catch
+            {
+                throw new  NullReferenceException("Student must not be null");
+            }
+         
 
         }
         /// <summary>

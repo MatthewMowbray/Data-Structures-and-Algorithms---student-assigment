@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace Data_Structures_and_Algorithms___Assignment
 {
-    internal class BinaryTree
+    public class BinaryTree
     {
         public Node Root {get;set;}
+
+        private List<int> _traversalOrder = new List<int>();  
+
+        
 
         public bool Add(Student student)
         {
@@ -18,13 +22,13 @@ namespace Data_Structures_and_Algorithms___Assignment
             while (after != null)
             {
                 before = after;
-                if (student.StudentID < after.Data) //Is new node in left tree? 
+                if (student.StudentID < after.Data) 
                     after = after.LeftNode;
-                else if (student.StudentID > after.Data) //Is new node in right tree?
+                else if (student.StudentID > after.Data) 
                     after = after.RightNode;
                 else
                 {
-                    //Exist same value
+                    
                     return false;
                 }
             }
@@ -32,7 +36,7 @@ namespace Data_Structures_and_Algorithms___Assignment
             Node newNode = new Node();
             newNode.Data = student.StudentID;
 
-            if (this.Root == null)//Tree ise empty
+            if (this.Root == null)
                 this.Root = newNode;
             else
             {
@@ -123,7 +127,8 @@ namespace Data_Structures_and_Algorithms___Assignment
         {
             if (parent != null)
             {
-                Console.Write(parent.Data + " ");
+                _traversalOrder.Add(parent.Data);
+                
                 TraversePreOrder(parent.LeftNode);
                 TraversePreOrder(parent.RightNode);
             }
@@ -135,7 +140,8 @@ namespace Data_Structures_and_Algorithms___Assignment
             if (parent != null)
             {
                 TraverseInOrder(parent.LeftNode);
-                Console.Write(parent.Data + " ");
+                _traversalOrder.Add(parent.Data);
+               
                 TraverseInOrder(parent.RightNode);
             }
         }
@@ -147,10 +153,22 @@ namespace Data_Structures_and_Algorithms___Assignment
             {
                 TraversePostOrder(parent.LeftNode);
                 TraversePostOrder(parent.RightNode);
-                Console.Write(parent.Data + " ");
+                _traversalOrder.Add(parent.Data);
+               
             }
         }
 
+       public string TraversalOutput()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < _traversalOrder.Count; i++)
+            {
+                sb.Append($"{_traversalOrder[i].ToString()} ");
+            }
+
+            return sb.ToString();
+        }
 
 
     }
