@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data_Structures_and_Algorithms___Assignment
 {
-   public  static class SearchAndSort
+   public static  class SearchAndSort<T>where T : IComparable<T>
     {
         /// <summary>
         /// Performs a linear search looking for a student within an array of students
@@ -14,22 +14,22 @@ namespace Data_Structures_and_Algorithms___Assignment
         /// <param name="studentArray"></param>
         /// <param name="student"></param>
         /// <returns>Index of student</returns>
-       public static int LinearSearchOfStudent(Student[] studentArray, Student student)
+       public static int LinearSearchOfStudent(T[] array, T searchTarget)
         {
             int i = 0;
             bool found = false;
 
             try
             {
-                while (!found && i < studentArray.Length)
+                while (!found && i < array.Length)
                 {
-                    if (student.Equals(studentArray[i]))
+                    if (searchTarget.Equals(array[i]))
                         found = true;
                     else
                         i++;
 
                 }
-                if (i < studentArray.Length)
+                if (i < array.Length)
                     return i;
                 else
                     return -1;
@@ -52,20 +52,20 @@ namespace Data_Structures_and_Algorithms___Assignment
         /// <param name="studentArray"></param>
         /// <param name="student"></param>
         /// <returns>Index of student</returns>
-      public  static int BinarySearchOfStudent(Student[] studentArray, Student student)
+      public  static int BinarySearchOfStudent(T[] array, T searchTarget)
         {
             int min = 0;
-            int max = studentArray.Length - 1;
+            int max = array.Length - 1;
             int mid;
             try
             {
                 do
                 {
                     mid = (max + min) / 2;
-                    if (studentArray[mid].Equals(student))
+                    if (array[mid].Equals(searchTarget))
                         return mid;
 
-                    if (student.CompareTo(studentArray[mid]) > 0)
+                    if (searchTarget.CompareTo(array[mid]) > 0)
                         min = mid + 1;
 
                     else
@@ -85,18 +85,18 @@ namespace Data_Structures_and_Algorithms___Assignment
         /// Implements bubble sort, sorting names in ascending order
         /// </summary>
         /// <param name="studentArray"></param>
-      public  static void BubbleSortOfStudentAsc(Student[] studentArray)
+      public  static void BubbleSortOfStudentAsc(T[] array)
         {
-            Student temp;
-            for (int j = 0; j < studentArray.Length - 1; j++)
+            T temp;
+            for (int j = 0; j < array.Length - 1; j++)
             {
-                for (int i = j+1; i < studentArray.Length - 1; i++)
+                for (int i = j+1; i < array.Length - 1; i++)
                 {
-                    if (studentArray[j].CompareTo(studentArray[i]) > 0)
+                    if (array[j].CompareTo(array[i]) > 0)
                     {   //swap the numbers
-                        temp = studentArray[j];
-                        studentArray[j] = studentArray[i];
-                        studentArray[i] = temp;
+                        temp = array[j];
+                        array[j] = array[i];
+                        array[i] = temp;
                     }
                 }
             }
@@ -105,18 +105,18 @@ namespace Data_Structures_and_Algorithms___Assignment
         /// Implements bubble sort, sorting names in descending order
         /// </summary>
         /// <param name="studentArray"></param>
-     public  static void BubbleSortOfStudentDes(Student[] studentArray)
+     public  static void BubbleSortOfStudentDes(T[] array)
         {
-            Student temp;
-            for (int j = 0; j < studentArray.Length - 1; j++)
+            T temp;
+            for (int j = 0; j < array.Length - 1; j++)
             {
-                for (int i = j+1; i < studentArray.Length - 1; i++)
+                for (int i = j+1; i < array.Length - 1; i++)
                 {
-                    if (studentArray[j].Name.CompareTo(studentArray[i].Name) < 0)
+                    if (array[j].CompareTo(array[i]) < 0)
                     {   //swap the numbers
-                        temp = studentArray[j];
-                        studentArray[j] = studentArray[i];
-                        studentArray[i] = temp;
+                        temp = array[j];
+                        array[j] = array[i];
+                        array[i] = temp;
                     }
                 }
             }
@@ -125,49 +125,26 @@ namespace Data_Structures_and_Algorithms___Assignment
         /// Implementation of selection sort for student objects by student ID
         /// </summary>
         /// <param name="studentArray"></param>
-      public  static void SelectionSortOfStudent(Student[] studentArray)
+      public  static void SelectionSortOfStudent(T[] array)
         {
-            Student temp;
+            T temp;
             int minIndex;
-            for (int i = 0; i < studentArray.Length - 1; i++)
+            for (int i = 0; i < array.Length - 1; i++)
             {
                 minIndex = i;
-                for (int j = i + 1; j < studentArray.Length; j++)
+                for (int j = i + 1; j < array.Length; j++)
                 {
-                    if (studentArray[j] < studentArray[minIndex])
+                    if (array[j].CompareTo(array[minIndex]) < 0)
                         minIndex = j;
                 }
                 //swap
-                temp = studentArray[minIndex];
-                studentArray[minIndex] = studentArray[i];
-                studentArray[i] = temp;
+                temp = array[minIndex];
+                array[minIndex] = array[i];
+                array[i] = temp;
             }
         }
-        /// <summary>
-        /// Implementation of insertionsort, sorts by  studentID 
-        /// </summary>
-        /// <param name="studentArray"></param>
-       public static void InsertionSort(Student[] studentArray)
-        {
-            int n = studentArray.Length;
-            for (int i = 1; i < n; ++i)
-            {
-                Student key = studentArray[i];
-                int j = i - 1;
+ 
 
-                // Move elements of arr[0..i-1],
-                // that are greater than key,
-                // to one position ahead of
-                // their current position
-                while (j >= 0 && studentArray[j] > key)
-                {
-                    studentArray[j + 1] = studentArray[j];
-                    j = j - 1;
-                }
-                studentArray[j + 1] = key;
-            }
-        }
-
-
+     
     }
 }

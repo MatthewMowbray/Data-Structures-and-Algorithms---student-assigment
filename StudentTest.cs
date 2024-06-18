@@ -44,7 +44,7 @@ namespace Data_Structures_and_Algorithms___Assignment
         Student student11;
         Student[] studentArray;
         LinkedList<Student> studentLinkedList;
-        BinaryTree binaryTreeStudent;
+        BinaryTree<int> binaryTreeStudent;
 
         Address address1;
         Address address2;
@@ -345,7 +345,7 @@ namespace Data_Structures_and_Algorithms___Assignment
         public void LinearSearchTrue()
         {
 
-            int index = SearchAndSort.LinearSearchOfStudent(studentArray,student1);
+            int index = SearchAndSort<Student>.LinearSearchOfStudent(studentArray,student1);
             Assert.Equal(0, index);
 
         }
@@ -354,7 +354,7 @@ namespace Data_Structures_and_Algorithms___Assignment
         public void LinearSearchFalse() 
         {
             
-            int index = SearchAndSort.LinearSearchOfStudent(studentArray, student11);
+            int index = SearchAndSort<Student>.LinearSearchOfStudent(studentArray, student11);
             Assert.Equal(-1,index);
         }
 
@@ -364,14 +364,14 @@ namespace Data_Structures_and_Algorithms___Assignment
             Student nullStudent = null;
 
          
-            Assert.Throws<NullReferenceException>((() => SearchAndSort.LinearSearchOfStudent(studentArray,nullStudent)));
+            Assert.Throws<NullReferenceException>((() => SearchAndSort<Student>.LinearSearchOfStudent(studentArray,nullStudent)));
         }
 
         [Fact]
         public void BinarySearchTrue() 
         {
             Array.Sort(studentArray);
-            int index = SearchAndSort.BinarySearchOfStudent(studentArray, student2);
+            int index = SearchAndSort<Student>.BinarySearchOfStudent(studentArray, student2);
             Assert.Equal(9, index);
             
         }
@@ -380,7 +380,7 @@ namespace Data_Structures_and_Algorithms___Assignment
         public void BinarySearchFalse()
         {
             Array.Sort(studentArray);
-            int index = SearchAndSort.BinarySearchOfStudent(studentArray, student11);
+            int index = SearchAndSort<Student>.BinarySearchOfStudent(studentArray, student11);
             Assert.Equal(-1, index);
         }
 
@@ -389,7 +389,7 @@ namespace Data_Structures_and_Algorithms___Assignment
         {
             Student student = null;
             Array.Sort(studentArray);
-            Assert.Throws<NullReferenceException>((() => SearchAndSort.BinarySearchOfStudent(studentArray,student)));
+            Assert.Throws<NullReferenceException>((() => SearchAndSort<Student>.BinarySearchOfStudent(studentArray,student)));
         }
 
         //Sort Algorithm Tests
@@ -397,7 +397,7 @@ namespace Data_Structures_and_Algorithms___Assignment
         [Fact]
         public void BubbleSortAsc()
         {
-            SearchAndSort.BubbleSortOfStudentAsc(studentArray);
+            SearchAndSort<Student>.BubbleSortOfStudentAsc(studentArray);
             Assert.Equal("Freda Floyd", studentArray[1].Name);
             Assert.Equal("Freda Just",studentArray[2].Name);
 
@@ -409,7 +409,7 @@ namespace Data_Structures_and_Algorithms___Assignment
         [Fact]
         public void BubbleSortDes() 
         {
-            SearchAndSort.BubbleSortOfStudentDes(studentArray);
+            SearchAndSort<Student>.BubbleSortOfStudentDes(studentArray);
             Assert.Equal("Loren Banks", studentArray[1].Name);
             
         }
@@ -418,8 +418,8 @@ namespace Data_Structures_and_Algorithms___Assignment
         public void SelectionSort()
         {
             int index = studentArray.Length - 1;
-            SearchAndSort.SelectionSortOfStudent(studentArray);
-            Assert.Equal("Freda Just", studentArray[index].Name);
+            SearchAndSort<Student>.SelectionSortOfStudent(studentArray);
+            Assert.Equal("Sherman Burns", studentArray[index].Name);
 
         }
 
@@ -550,14 +550,14 @@ namespace Data_Structures_and_Algorithms___Assignment
         [Fact]
         public void BinaryTreeAdd()
         {
-            binaryTreeStudent = new BinaryTree();
+            binaryTreeStudent = new BinaryTree<int>();
             Random rnd = new Random();
             student1.StudentID = rnd.Next(1,40);
             student2.StudentID = rnd.Next(1, 40);
-            binaryTreeStudent.Add(student1);
-            binaryTreeStudent.Add(student2);
+            binaryTreeStudent.Add(student1.StudentID);
+            binaryTreeStudent.Add(student2.StudentID);
 
-           Node find = binaryTreeStudent.find(student1);
+           Node<int> find = binaryTreeStudent.find(student1.StudentID);
 
            Assert.Equal(student1.StudentID, find.Data);
         }
@@ -565,18 +565,18 @@ namespace Data_Structures_and_Algorithms___Assignment
         [Fact]
         public void TraversePreOrder()
         {
-            binaryTreeStudent = new BinaryTree();
-            binaryTreeStudent.Add(student1);
-            binaryTreeStudent.Add(student2);
-            binaryTreeStudent.Add(student3);
-            binaryTreeStudent.Add(student4);
-            binaryTreeStudent.Add(student5);
-            binaryTreeStudent.Add(student6);
-            binaryTreeStudent.Add(student7);
+            binaryTreeStudent = new BinaryTree<int>();
+            binaryTreeStudent.Add(student1.StudentID);
+            binaryTreeStudent.Add(student2.StudentID);
+            binaryTreeStudent.Add(student3.StudentID);
+            binaryTreeStudent.Add(student4.StudentID);
+            binaryTreeStudent.Add(student5.StudentID);
+            binaryTreeStudent.Add(student6.StudentID);
+            binaryTreeStudent.Add(student7.StudentID);
 
             string exspectedOutput = "1 2 3 12 5 6 7 ";
 
-            Node parent = binaryTreeStudent.Root; 
+            Node<int> parent = binaryTreeStudent.Root; 
 
             binaryTreeStudent.TraversePreOrder(parent);
 
@@ -588,18 +588,18 @@ namespace Data_Structures_and_Algorithms___Assignment
         [Fact]
         public void TraversePostOrder()
         {
-            binaryTreeStudent = new BinaryTree();
-            binaryTreeStudent.Add(student1);
-            binaryTreeStudent.Add(student2);
-            binaryTreeStudent.Add(student3);
-            binaryTreeStudent.Add(student4);
-            binaryTreeStudent.Add(student5);
-            binaryTreeStudent.Add(student6);
-            binaryTreeStudent.Add(student7);
+            binaryTreeStudent = new BinaryTree<int>();
+            binaryTreeStudent.Add(student1.StudentID);
+            binaryTreeStudent.Add(student2.StudentID);
+            binaryTreeStudent.Add(student3.StudentID);
+            binaryTreeStudent.Add(student4.StudentID);
+            binaryTreeStudent.Add(student5.StudentID);
+            binaryTreeStudent.Add(student6.StudentID);
+            binaryTreeStudent.Add(student7.StudentID);
 
             string exspectedOutput = "7 6 5 12 3 2 1 ";
 
-            Node parent = binaryTreeStudent.Root;
+            Node<int> parent = binaryTreeStudent.Root;
 
             binaryTreeStudent.TraversePostOrder(parent);
 
@@ -611,18 +611,18 @@ namespace Data_Structures_and_Algorithms___Assignment
         [Fact]
         public void TraverseInOrder()
         {
-            binaryTreeStudent = new BinaryTree();
-            binaryTreeStudent.Add(student1);
-            binaryTreeStudent.Add(student2);
-            binaryTreeStudent.Add(student3);
-            binaryTreeStudent.Add(student4);
-            binaryTreeStudent.Add(student5);
-            binaryTreeStudent.Add(student6);
-            binaryTreeStudent.Add(student7);
+            binaryTreeStudent = new BinaryTree<int>();
+            binaryTreeStudent.Add(student1.StudentID);
+            binaryTreeStudent.Add(student2.StudentID);
+            binaryTreeStudent.Add(student3.StudentID);
+            binaryTreeStudent.Add(student4.StudentID);
+            binaryTreeStudent.Add(student5.StudentID);
+            binaryTreeStudent.Add(student6.StudentID);
+            binaryTreeStudent.Add(student7.StudentID);
 
             string exspectedOutput = "1 2 3 5 6 7 12 ";
 
-            Node parent = binaryTreeStudent.Root;
+            Node<int> parent = binaryTreeStudent.Root;
 
             binaryTreeStudent.TraverseInOrder(parent);
 

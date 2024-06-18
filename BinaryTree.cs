@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 
 namespace Data_Structures_and_Algorithms___Assignment
 {
-    public class BinaryTree
+    public class BinaryTree<T>where T : IComparable<T>
     {
-        public Node Root {get;set;}
+        public Node<T> Root {get;set;}
 
-        private List<int> _traversalOrder = new List<int>();  
+        private List<T> _traversalOrder = new List<T>();  
 
         
 
-        public bool Add(Student student)
+        public bool Add(T value)
         {
-            Node before = null;
-            Node after = this.Root;
+            Node<T> before = null;
+            Node<T> after = this.Root;
 
             while (after != null)
             {
                 before = after;
-                if (student.StudentID < after.Data) 
+                if (value.CompareTo(after.Data) < 0) 
                     after = after.LeftNode;
-                else if (student.StudentID > after.Data) 
+                else if (value.CompareTo(after.Data) > 0) 
                     after = after.RightNode;
                 else
                 {
@@ -33,14 +33,14 @@ namespace Data_Structures_and_Algorithms___Assignment
                 }
             }
 
-            Node newNode = new Node();
-            newNode.Data = student.StudentID;
+            Node<T> newNode = new Node<T>();
+            newNode.Data = value;
 
             if (this.Root == null)
                 this.Root = newNode;
             else
             {
-                if (student.StudentID < before.Data)
+                if (value.CompareTo(before.Data) < 0)
                     before.LeftNode = newNode;
                 else
                     before.RightNode = newNode;
@@ -52,38 +52,38 @@ namespace Data_Structures_and_Algorithms___Assignment
 
 
 
-        public Node find(Student student)
+        public Node<T> find(T value)
         {
-            return this.Find(student, this.Root);
+            return this.Find(value, this.Root);
         }
 
 
-        private Node Find(Student student, Node parent)
+        private Node<T> Find(T value, Node<T> parent)
         {
             if (parent != null)
             {
-                if (student.StudentID == parent.Data) return parent;
-                if (student.StudentID < parent.Data)
-                    return Find(student, parent.LeftNode);
+                if (value.Equals(parent.Data)) return parent;
+                if (value.CompareTo(parent.Data) < 0)
+                    return Find(value, parent.LeftNode);
                 else
-                    return Find(student, parent.RightNode);
+                    return Find(value, parent.RightNode);
             }
 
             return null;
         }
 
 
-        public void Remove(Student student)
+        public void Remove(T value)
         {
-            this.Root = Remove(this.Root, student);
+            this.Root = Remove(this.Root, value);
         }
 
-        private Node Remove(Node parent, Student key)
+        private Node<T> Remove(Node<T> parent, T key)
         {
             if (parent == null) return parent;
 
-            if (key.StudentID < parent.Data) parent.LeftNode = Remove(parent.LeftNode, key);
-            else if (key.StudentID > parent.Data)
+            if (key.CompareTo(parent.Data) < 0) parent.LeftNode = Remove(parent.LeftNode, key);
+            else if (key.CompareTo(parent.Data) > 0)
                 parent.RightNode = Remove(parent.RightNode, key);
 
             // if value is same as parent's value, then this is the node to be deleted  
@@ -105,14 +105,11 @@ namespace Data_Structures_and_Algorithms___Assignment
             return parent;
         }
 
-        private Node Remove(Node rightNode, int data)
-        {
-            throw new NotImplementedException();
-        }
+        
 
-        private int MinValue(Node node)
+        private T MinValue(Node<T> node)
         {
-            int minv = node.Data;
+            T minv = node.Data;
 
             while (node.LeftNode != null)
             {
@@ -123,7 +120,7 @@ namespace Data_Structures_and_Algorithms___Assignment
             return minv;
         }
 
-        public void TraversePreOrder(Node parent)
+        public void TraversePreOrder(Node<T> parent)
         {
             if (parent != null)
             {
@@ -135,7 +132,7 @@ namespace Data_Structures_and_Algorithms___Assignment
         }
 
 
-        public void TraverseInOrder(Node parent)
+        public void TraverseInOrder(Node<T> parent)
         {
             if (parent != null)
             {
@@ -147,7 +144,7 @@ namespace Data_Structures_and_Algorithms___Assignment
         }
 
 
-        public void TraversePostOrder(Node parent)
+        public void TraversePostOrder(Node<T> parent)
         {
             if (parent != null)
             {
@@ -170,6 +167,17 @@ namespace Data_Structures_and_Algorithms___Assignment
             return sb.ToString();
         }
 
+
+
+
+
+
+
+
+        private Node<T> Remove(Node<T> rightNode, int data)
+        {
+            throw new NotImplementedException();
+        }
 
     }
 }
